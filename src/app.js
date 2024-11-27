@@ -1,7 +1,7 @@
-import express from 'express';
+import express from 'express'; 
 import morgan from 'morgan'; // para poder ver las peticiones por consola
 
-import taskaRoutes from './routes/task.routes.js'
+import taskaRoutes from './routes/tasks.routes.js'
 import authRoutes from "./routes/auth.routes.js"
 
 const app = express();
