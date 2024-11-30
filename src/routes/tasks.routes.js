@@ -1,5 +1,12 @@
-import { Router } from "express";
-import { createTask, deleteTask, getAllTasks, getTask, updateTask } from "../controllers/tasks.controller.js";
+import Router from "express-promise-router"; // para el manejar los errores de las rutas como un Promises
+
+import { 
+    createTask,
+    deleteTask,
+    getAllTasks, 
+    getTask, 
+    updateTask 
+} from "../controllers/tasks.controller.js";
 
 const router = Router();
 
