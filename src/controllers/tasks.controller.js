@@ -8,6 +8,7 @@ export const getAllTasks = async (req, res, next) => {
 
 };
 
+// Obtener una tarea especifica 
 export const getTask = async (req, res) => {
     const result = await pool.query('SELECT * FROM tasks WHERE id = $1', [req.params.id]);
 
@@ -16,7 +17,6 @@ export const getTask = async (req, res) => {
             message: "No esiste una tarea con ese id",
         })
     }
-
     return res.json(result.rows[0]);
 }
 
@@ -44,5 +44,19 @@ export const createTask = async (req, res, next) => {
 
 export const updateTask = (req, res) => res.send('Actualizando tarea unica');
 
-export const deleteTask = (req, res) => res.send('eliminando tarea');
 
+// Eliminar una tera unica
+export const deleteTask = async (req, res) => {
+
+    const result = await pool.query('DELETE FROM tasks WHERE id = $1', [req.params.id])
+    console.log(result)
+
+    if(result.rowCount === 0){
+        return res.status(404).json({
+            message: "No existe esa tarea"
+        })
+    }
+
+    return res.sendStatus(204);
+
+}
