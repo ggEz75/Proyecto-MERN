@@ -2,14 +2,23 @@ import { pool } from "../db.js";
 
 export const getAllTasks = async (req, res, next) => {
 
-    const result = await pool.query('SELECT * FROM tasks2'); // consulta a la tabla
+    const result = await pool.query('SELECT * FROM tasks'); // consulta a la tabla
     console.log(result);
     return res.json(result.rows);
 
 };
 
-export const getTask = (req, res) => res.send('Obteniendo tarea unica');
+export const getTask = async (req, res) => {
+    const result = await pool.query('SELECT * FROM tasks WHERE id = $1', [req.params.id]);
 
+    if (result.rowCount === 0) {
+        return res.status(404).json({
+            message: "No esiste una tarea con ese id",
+        })
+    }
+
+    return res.json(result.rows[0]);
+}
 
 export const createTask = async (req, res, next) => {
     const { tittle, description } = req.body;
