@@ -10,6 +10,6 @@ export const pool = new pg.Pool({
 });
 
 pool.on('connect', () => {
-    console.log('Database connected');
+    console.log('######     Database connected     #########');
 })
 

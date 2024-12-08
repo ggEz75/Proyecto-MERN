@@ -16,12 +16,16 @@ export const signUp = async (req, res) => {
         
         const token = await createAccessToke({id: result.rows[0].id}) // jwt
         
-        // return res.json(result.rows[0]);
+        //         TOKEN en COOKIE
+        res.cookie('token', token, {
+            httpOly: true,
+            // secure: true,
+            sameSite: 'none',
+            maxAge: 24 * 60 * 60 * 1000 // 1 dia
+        }); // mandamos el token de la sesion iniciada 
 
-        // return token
-        return res.json({
-            token: token,
-        })
+        
+        return res.json(result.rows[0])
 
     } catch (error) {
         if (error.code === "23505"){

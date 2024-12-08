@@ -1,5 +1,6 @@
 import express from 'express'; 
 import morgan from 'morgan'; // para poder ver las peticiones por consola
+import cookieParser from 'cookie-parser';
 
 import taskaRoutes from './routes/tasks.routes.js'
 import authRoutes from "./routes/auth.routes.js"
@@ -9,12 +10,13 @@ const app = express();
 //            MIDDLEWARE
 
 app.use(morgan('dev')); // ahora en la terminal se podra ver tambien las peticiones y/o errores
+app.use(cookieParser()); // permite convertir los headers en cookies
 app.use(express.json()) // para transformar datos json en obj js
 app.use(express.urlencoded({extended: false})); // para formularios html
 
 
 //            ROUTES 
-app.get('/', (req, res) => res.json({message: "wellcome tomy API"}));
+app.get('/', (req, res) => res.json({message: "wellcome to my API"}));
 // descargar la extencion de JSON viewer en chrome "y ponerlo en oscuro🙏"
 
 // # NOTA: colocar "api" en el llamado de las rutas nos aseguran que no coincidan con las rutas de front
