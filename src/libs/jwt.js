@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-export const createAccessToke = (payload) => {
+export const createAccessToken = (payload) => {
     return new Promise((resolve, reject) => {
         jwt.sign(
             payload,
@@ -15,5 +15,3 @@ export const createAccessToke = (payload) => {
         );
     });
 };
-
-

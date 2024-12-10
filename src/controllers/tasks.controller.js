@@ -10,7 +10,7 @@ export const getAllTasks = async (req, res, next) => {
 
 };
 
-// Obtener una tarea especifica (GET)
+//                               Obtener una tarea especifica (GET)
 export const getTask = async (req, res) => {
     const result = await pool.query('SELECT * FROM tasks WHERE id = $1', [req.params.id]);
 
@@ -22,7 +22,7 @@ export const getTask = async (req, res) => {
     return res.json(result.rows[0]);
 }
 
-// Crear una tarea (POST)
+//                                   Crear una tarea (POST)
 export const createTask = async (req, res, next) => {
     const { tittle, description } = req.body;
     console.log(tittle,description)
@@ -45,8 +45,7 @@ export const createTask = async (req, res, next) => {
     }
 };
 
-
-// Actualizar tarea unica (PUT)
+//                        Actualizar tarea unica (PUT)
 export const updateTask = async (req, res) => {
     const id = req.params.id
     const { tittle, description } = req.body;
@@ -63,12 +62,9 @@ export const updateTask = async (req, res) => {
     return res.json({
         message: 'Tarea Actualizada'
     })
-
-
 }
 
-
-// Eliminar una tera unica (DELETE)
+//                    Eliminar una tera unica (DELETE)
 export const deleteTask = async (req, res) => {
 
     const result = await pool.query('DELETE FROM tasks WHERE id = $1', [req.params.id])
@@ -79,7 +75,5 @@ export const deleteTask = async (req, res) => {
             message: "No existe esa tarea"
         })
     }
-
     return res.sendStatus(204);
-
 }
