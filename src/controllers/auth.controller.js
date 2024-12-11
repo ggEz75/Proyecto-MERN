@@ -1,6 +1,8 @@
 import {pool} from '../db.js'
 import bcrypt from 'bcrypt'
 import { createAccessToken } from '../libs/jwt.js';
+import axios from 'axios';
+
 
 //     LOGIN 
 export const sign = async (req, res) => {
@@ -38,11 +40,12 @@ export const sign = async (req, res) => {
 
 export const signUp = async (req, res, next) => {
     const { name, email, password} = req.body;
+    const git_avatar = await axios.get(`https://api.github.com/users/${name}`);
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10) // el numero ejecuta el numero de veces el algoritmo, es recomendable usar de 10 a 15
 
-        const result = await pool.query('INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING *', [name, email, hashedPassword]
+        const result = await pool.query('INSERT INTO users(name, email, password, git_avatar) VALUES($1, $2, $3, $4) RETURNING *', [name, email, hashedPassword, git_avatar.data.avatar_url]
         );
         
         const token = await createAccessToken({id: result.rows[0].id}) // jwt
@@ -77,7 +80,7 @@ export const signOut = (req, res) => {
 };
 
 export const profile = async (req, res) => {
-    const result = await pool.query('SELECT * FROM users WHERE id = $1', [req.userID]);
+    const result = await pool.query('SELECT * FROM users WHERE id = $1', [req.user_id]);
     return res.json(result.rows[0])
 
 };
