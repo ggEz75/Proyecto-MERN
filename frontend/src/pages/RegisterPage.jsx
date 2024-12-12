@@ -1,7 +1,9 @@
 
-function RegisterPage(props) {
+function RegisterPage() {
   return (
-    <div>RegisterPage</div>
+    <div>
+      <h3 className="text-2xl font-bold" >Register</h3>
+    </div>
   )
 }
 

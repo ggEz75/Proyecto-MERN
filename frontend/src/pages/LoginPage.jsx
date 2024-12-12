@@ -1,5 +1,5 @@
 
-function LoginPage(props) {
+function LoginPage() {
   return (
     <div>LoginPage</div>
   )
