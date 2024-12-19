@@ -3,11 +3,31 @@ import {useForm} from 'react-hook-form'
 
 function RegisterPage() {
 
-  const {register, handleSubmit, formState: {errors}} = useForm()
+  const {
+    register, 
+    handleSubmit, 
+    formState: {errors}} = useForm()
 
-  const onSubmit = handleSubmit(data => {
-    console.log(data)
-  })
+  const onSubmit = handleSubmit(async (data) => {
+    console.log(data);
+
+    const response = await fetch('http://localhost:3000/api/signup', {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify(data),
+      headers:{
+        'Content-Type':'application/json',
+        'Acces-Control-Allow-Credetials': true
+      }
+    })
+
+    const dataSignup = await response.json()
+    console.log(dataSignup)
+  });
+  /* al completar el envio de datos tener en cuenta en donde este alojado el servidor para darle el permiso de aceptar los datos  */
+
+
+
 
   return (
     <div className="h-[calc(100vh-64px)] flex items-center justify-center">

@@ -1,7 +1,7 @@
 import {pool} from '../db.js'
 import bcrypt from 'bcrypt'
 import { createAccessToken } from '../libs/jwt.js';
-import axios from 'axios';
+import axios from 'axios'; // para las imagenes de avatares relacionando el nombre con la cuenta de github
 
 
 //     LOGIN 
@@ -27,15 +27,18 @@ export const sign = async (req, res) => {
     const token = await createAccessToken({id: result.rows[0].id})
 
     res.cookie('token', token, {
-        httpOly: true,
-        // secure: true,
-        sameSite: 'none',
+        // httpOly: true,
+        secure: true,
+        sameSite: 'none', // esto nos indica que entre dominios se puedan consultar 
         maxAge: 24 * 60 * 60 * 1000 // 1 dia
     }); // mandamos el token de la sesion iniciada
     
     return res.json(result.rows[0])
 
 };
+/*
+
+*/
 
 
 export const signUp = async (req, res, next) => {
