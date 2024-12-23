@@ -27,7 +27,7 @@ export const sign = async (req, res) => {
     const token = await createAccessToken({id: result.rows[0].id})
 
     res.cookie('token', token, {
-        // httpOly: true,
+        httpOly: true,
         secure: true,
         sameSite: 'none', // esto nos indica que entre dominios se puedan consultar 
         maxAge: 24 * 60 * 60 * 1000 // 1 dia

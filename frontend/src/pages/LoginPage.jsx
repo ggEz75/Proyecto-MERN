@@ -1,13 +1,19 @@
 import {Card, Input, Button, Label} from '../components/ui'
 import {Link} from 'react-router-dom'
 import {useForm} from 'react-hook-form'
+import {useAuth} from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 function LoginPage() {
 
   const {register, handleSubmit} = useForm(); // Desestructuración de funciones de useForm
+  const {signin} = useAuth(); // Retorna multiples datos del contexto de autenticación
+  const navigate = useNavigate(); // Redireccionar al perfil
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data); // Aquí se manejan los datos del formulario enviados
+  const onSubmit = handleSubmit( async(data) => {
+    await signin(data); // Petición de inicio de sesión
+    navigate('/profile'); // Redirigir al perfil
+
   });
 
 
